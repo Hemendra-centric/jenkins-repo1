@@ -13,7 +13,7 @@ pipeline {
             steps {
                 // Compile the Java application
                 script {
-                    sh 'mvn clean compile'
+                    bat 'mvn clean compile'
                 }
             }
         }
@@ -22,7 +22,7 @@ pipeline {
             steps {
                 // Run unit tests
                 script {
-                    sh 'mvn test'
+                    bat 'mvn test'
                 }
             }
         }
@@ -31,7 +31,7 @@ pipeline {
             steps {
                 // Package the application (e.g., create a JAR/WAR file)
                 script {
-                    sh 'mvn package'
+                    bat 'mvn package'
                 }
             }
         }
