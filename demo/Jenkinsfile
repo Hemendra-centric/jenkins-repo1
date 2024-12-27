@@ -11,27 +11,27 @@ pipeline {
 
         stage('Build') {
             steps {
-                // Compile the Java application
+                // Change to the 'demo' directory and compile the Java application
                 script {
-                    bat 'mvn clean compile'
+                    bat 'cd demo && mvn clean compile'
                 }
             }
         }
 
         stage('Test') {
             steps {
-                // Run unit tests
+                // Change to the 'demo' directory and run unit tests
                 script {
-                    bat 'mvn test'
+                    bat 'cd demo && mvn test'
                 }
             }
         }
 
         stage('Package') {
             steps {
-                // Package the application (e.g., create a JAR/WAR file)
+                // Change to the 'demo' directory and package the application (e.g., create a JAR/WAR file)
                 script {
-                    bat 'mvn package'
+                    bat 'cd demo && mvn package'
                 }
             }
         }
@@ -39,7 +39,7 @@ pipeline {
         stage('Archive Artifacts') {
             steps {
                 // Archive the JAR/WAR file for later use
-                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+                archiveArtifacts artifacts: 'demo/target/*.jar', fingerprint: true
             }
         }
     }
