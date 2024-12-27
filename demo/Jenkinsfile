@@ -1,0 +1,55 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout the repository code
+                checkout scm
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // Compile the Java application
+                script {
+                    sh 'mvn clean compile'
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                // Run unit tests
+                script {
+                    sh 'mvn test'
+                }
+            }
+        }
+
+        stage('Package') {
+            steps {
+                // Package the application (e.g., create a JAR/WAR file)
+                script {
+                    sh 'mvn package'
+                }
+            }
+        }
+
+        stage('Archive Artifacts') {
+            steps {
+                // Archive the JAR/WAR file for later use
+                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Build and Test stages completed successfully!'
+        }
+        failure {
+            echo 'Something went wrong! Check the logs.'
+        }
+    }
+}
